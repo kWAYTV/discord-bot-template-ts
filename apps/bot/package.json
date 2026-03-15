@@ -1,0 +1,26 @@
+{
+  "name": "bot",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rimraf dist .turbo",
+    "dev": "tsx watch src/index.ts",
+    "lint": "biome check .",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@repo/core": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/env": "workspace:*",
+    "discord.js": "latest",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.10.0"
+  },
+  "devDependencies": {
+    "@repo/esbuild-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}

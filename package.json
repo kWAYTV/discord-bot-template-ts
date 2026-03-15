@@ -1,0 +1,41 @@
+{
+  "name": "discord-bot-template-ts",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "check": "ultracite check",
+    "clean": "rimraf node_modules .turbo \"**/node_modules\" \"**/dist\" \"**/.turbo\"",
+    "deps:update": "pnpm dlx taze -w -r -f",
+    "dev": "turbo dev",
+    "fix": "ultracite fix",
+    "format": "biome format --write .",
+    "json:sort": "pnpm dlx sort-package-json package.json apps/*/package.json packages/*/package.json",
+    "lint": "biome check --write .",
+    "prepare": "husky",
+    "release": "pnpm dlx bumpp -r"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.10.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.7",
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@types/node": "latest",
+    "bumpp": "^11.0.0",
+    "esbuild": "latest",
+    "esbuild-plugin-tsc": "^0.5.0",
+    "husky": "latest",
+    "rimraf": "latest",
+    "tsx": "latest",
+    "turbo": "^2.8.17",
+    "typescript": "^5.9.3",
+    "ultracite": "7.3.1"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "engines": {
+    "node": ">=20"
+  }
+}

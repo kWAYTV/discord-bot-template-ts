@@ -1,0 +1,8 @@
+import { env } from "@repo/env";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+// biome-ignore lint/performance/noNamespaceImport: drizzle schema
+import * as schema from "./schema/index.js";
+
+const client = postgres(env.DATABASE_URL);
+export const db = drizzle(client, { schema });

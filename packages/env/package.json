@@ -1,0 +1,21 @@
+{
+  "name": "@repo/env",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rimraf dist .turbo",
+    "lint": "biome check ."
+  },
+  "dependencies": {
+    "@t3-oss/env-core": "latest",
+    "dotenv": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@repo/esbuild-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  }
+}

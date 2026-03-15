@@ -1,0 +1,25 @@
+{
+  "name": "@repo/core",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rimraf dist .turbo",
+    "lint": "biome check ."
+  },
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "@repo/env": "workspace:*",
+    "pino": "latest",
+    "pino-pretty": "latest",
+    "reflect-metadata": "latest",
+    "tsyringe": "latest"
+  },
+  "devDependencies": {
+    "@repo/esbuild-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "discord.js": "latest"
+  }
+}
