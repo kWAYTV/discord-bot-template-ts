@@ -4,23 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node build.js",
-    "clean": "rimraf dist .turbo",
-    "dev": "tsx watch src/index.ts",
-    "lint": "biome check .",
-    "start": "node dist/index.js"
+    "dev": "node --watch --env-file-if-exists=../../.env src/index.ts",
+    "start": "node src/index.ts",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@repo/core": "workspace:*",
     "@repo/db": "workspace:*",
-    "@repo/env": "workspace:*",
-    "discord.js": "latest",
-    "reflect-metadata": "^0.2.2",
-    "tsyringe": "^4.10.0"
+    "@t3-oss/env-core": "catalog:",
+    "discord.js": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@repo/esbuild-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "typescript": "^5.9.3"
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }

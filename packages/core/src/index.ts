@@ -1,8 +1,6 @@
-// biome-ignore lint/performance/noBarrelFile: package public API
-export * from "./decorators/command.decorator.js";
-export * from "./decorators/event.decorator.js";
-export * from "./handlers/command.handler.js";
-export * from "./handlers/event.handler.js";
-export * from "./interfaces/command.interface.js";
-export * from "./interfaces/event.interface.js";
-export * from "./logger.js";
+export { type BotOptions, createBot } from "./bot/create-bot.ts";
+export type { Feature } from "./bot/feature.ts";
+export type { Command } from "./command/command.ts";
+export type { PrefixResolver } from "./command/handle-prefix-command.ts";
+export type { AnyBotEvent, BotEvent } from "./event/bot-event.ts";
+export { logger } from "./logger/logger.ts";

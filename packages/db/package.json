@@ -1,24 +1,28 @@
 {
   "name": "@repo/db",
   "version": "0.0.2",
+  "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "build": "node build.js",
-    "clean": "rimraf dist .turbo",
     "generate": "drizzle-kit generate",
-    "lint": "biome check .",
-    "push": "drizzle-kit push"
+    "migrate": "drizzle-kit migrate",
+    "push": "drizzle-kit push",
+    "studio": "drizzle-kit studio",
+    "typecheck": "tsc"
   },
   "dependencies": {
-    "@repo/env": "workspace:*",
-    "drizzle-orm": "latest",
-    "postgres": "latest"
+    "@t3-oss/env-core": "catalog:",
+    "drizzle-orm": "^0.45.4",
+    "postgres": "^4.1.1",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@repo/esbuild-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "drizzle-kit": "latest"
+    "@types/node": "catalog:",
+    "drizzle-kit": "^0.31.11",
+    "typescript": "catalog:"
   }
 }

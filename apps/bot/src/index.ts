@@ -1,27 +1,20 @@
-import "reflect-metadata";
+import { createBot, logger } from "@repo/core";
+import { GatewayIntentBits } from "discord.js";
+import { env } from "./env.ts";
+import { generalFeature } from "./features/general/general.feature.ts";
+import { resolveGuildPrefix } from "./features/guild-settings/resolve-guild-prefix.ts";
 
-import { logger } from "@repo/core";
-import { container } from "tsyringe";
-import { BotClient } from "./client.js";
+const bot = createBot({
+  token: env.DISCORD_TOKEN,
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+  features: [generalFeature],
+  commandGuildId: env.NODE_ENV === "development" ? env.DEV_GUILD_ID : undefined,
+  resolvePrefix: resolveGuildPrefix,
+});
 
-import { loadCommands } from "./loaders/load.commands.js";
-import { loadEvents } from "./loaders/load.events.js";
-
-async function bootstrap() {
-  try {
-    // Resolve services
-    const client = container.resolve(BotClient);
-
-    await loadCommands();
-    const events = await loadEvents();
-    events.attachTo(client);
-
-    // Start the bot
-    await client.start();
-  } catch (error) {
-    logger.error(error, "Error during bot bootstrap:");
-    process.exit(1);
-  }
+try {
+  await bot.start();
+} catch (error) {
+  logger.fatal(error, "Failed to start bot");
+  process.exit(1);
 }
-
-bootstrap();

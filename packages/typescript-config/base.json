@@ -1,21 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node.js (native type stripping)",
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
-    "esModuleInterop": true,
-    "incremental": false,
-    "isolatedModules": true,
-    "lib": ["es2022", "DOM", "DOM.Iterable"],
-    "module": "esnext",
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "lib": ["es2024"],
+    "module": "nodenext",
     "moduleDetection": "force",
-    "moduleResolution": "Bundler",
+    "noEmit": true,
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "target": "es2024",
+    "types": ["node"],
+    "verbatimModuleSyntax": true
   }
 }

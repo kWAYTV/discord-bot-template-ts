@@ -1,15 +1,19 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "root": true,
+  "extends": ["ultracite/biome/core"],
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
+  "files": {
+    "includes": ["!.agents"]
+  },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "preset": "recommended"
     }
   },
   "formatter": {
@@ -17,11 +21,5 @@
     "lineWidth": 120,
     "indentStyle": "space",
     "indentWidth": 2
-  },
-  "javascript": {
-    "parser": {
-      "unsafeParameterDecoratorsEnabled": true
-    }
-  },
-  "extends": ["ultracite/biome/core"]
+  }
 }
