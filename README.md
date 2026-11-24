@@ -1,53 +1,28 @@
-# Discord Bot Template
+# discord-bot-template-ts
 
-TypeScript monorepo template for production Discord bots. Built with Turborepo, discord.js, Drizzle and PostgreSQL.
-Node runs the TypeScript sources directly (native type stripping), so there is no build step.
+Discord bot starter: discord.js, Drizzle + Postgres, Turborepo. No build step, Node runs the `.ts` files directly.
 
-## Prerequisites
-
-- [Node.js](https://nodejs.org) 24+
-- [pnpm](https://pnpm.io/) 12+
-- [PostgreSQL](https://www.postgresql.org/) (or `docker compose up postgres`)
-
-## Quick Start
+Needs Node 24+ and pnpm 12+.
 
 ```bash
-cp .env.example .env   # configure environment variables
+cp .env.example .env
 pnpm install
-pnpm -F @repo/db push  # create the tables
+pnpm -F @repo/db push
 pnpm dev
 ```
 
-## Structure
+## Layout
 
-```
-apps/bot/src
-├── index.ts                  # composition root: env + features → createBot
-├── env.ts                    # bot environment schema
-└── features/                 # one folder per domain
-    ├── general/
-    │   ├── general.feature.ts
-    │   └── ping.command.ts
-    └── guild-settings/
-        ├── guild-settings.feature.ts
-        ├── guild-prefix.ts                  # cached per-guild prefix
-        ├── prefix.command.ts                # /prefix and !prefix
-        └── forget-prefix-on-leave.event.ts
-packages/core/src             # bot framework: createBot, commands, events, logger
-packages/db/src               # database, one folder per domain (schema + repository)
-packages/typescript-config    # shared tsconfig
-```
+- `apps/bot` – the bot. Each folder in `src/features` is one feature, registered in `src/index.ts`.
+- `packages/core` – `createBot`, command/event handling, logger.
+- `packages/db` – schema and queries, one folder per table.
 
-## Adding a feature
+## Commands
 
-**Command** — implement `runSlash`, `runPrefix`, or both. Only commands with `runSlash` are deployed as slash commands.
-`guildOnly` and `defaultMemberPermissions` apply to both kinds: Discord enforces them for slash commands, the bot for prefix commands.
-
-```typescript
-// apps/bot/src/features/general/ping.command.ts
+```ts
 export const pingCommand = {
   name: "ping",
-  description: "Replies with Pong!",
+  description: "Pong!",
   async runSlash(interaction) {
     await interaction.reply("Pong!");
   },
@@ -57,43 +32,18 @@ export const pingCommand = {
 } satisfies Command;
 ```
 
-**Event**
+Add it to a feature's `commands` array. Use `runSlash`, `runPrefix` or both. `guildOnly` and `defaultMemberPermissions` work for both.
 
-```typescript
-export const welcomeEvent = {
-  name: Events.GuildMemberAdd,
-  async run(member) {
-    await member.send(`Welcome to ${member.guild.name}!`);
-  },
-} satisfies BotEvent<Events.GuildMemberAdd>;
-```
-
-Group them in a feature and register it in `apps/bot/src/index.ts`:
-
-```typescript
-export const generalFeature = {
-  name: "general",
-  commands: [pingCommand],
-  events: [welcomeEvent],
-} satisfies Feature;
-```
+Events work the same way: `{ name: Events.X, run() {} } satisfies BotEvent<Events.X>` in the feature's `events` array.
 
 ## Scripts
 
-| Command          | Description                           |
-| ---------------- | ------------------------------------- |
-| `pnpm dev`       | Run the bot in watch mode             |
-| `pnpm typecheck` | Type-check every package              |
-| `pnpm check`     | Lint and format check (no write)      |
-| `pnpm fix`       | Lint and format with auto-fix         |
-| `pnpm clean`     | Remove `node_modules` and turbo cache |
+- `pnpm dev` – run with watch
+- `pnpm typecheck`
+- `pnpm check` / `pnpm fix` – lint and format
+- `pnpm release` – bump, tag, push
+- `pnpm -F @repo/db generate | migrate | push | studio`
 
-**Database:** `pnpm -F @repo/db generate | migrate | push | studio`
+Commits follow [Conventional Commits](https://www.conventionalcommits.org).
 
-## Git
-
-Conventional Commits are required: `feat:`, `fix:`, `chore:`, etc.
-
----
-
-Original template by [@appujet](https://github.com/appujet).
+Based on [appujet](https://github.com/appujet)'s template.
