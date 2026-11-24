@@ -12,13 +12,14 @@
     "format": "biome format --write .",
     "json:sort": "pnpm dlx sort-package-json package.json apps/*/package.json packages/*/package.json",
     "prepare": "husky",
-    "release": "pnpm dlx bumpp -r",
+    "release": "bumpp -r",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.8",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
+    "bumpp": "^12.3.0",
     "husky": "^9.1.7",
     "rimraf": "^6.1.4",
     "turbo": "^2.11.13",
