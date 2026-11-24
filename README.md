@@ -29,7 +29,10 @@ apps/bot/src
     │   ├── general.feature.ts
     │   └── ping.command.ts
     └── guild-settings/
-        └── resolve-guild-prefix.ts
+        ├── guild-settings.feature.ts
+        ├── guild-prefix.ts                  # cached per-guild prefix
+        ├── prefix.command.ts                # /prefix and !prefix
+        └── forget-prefix-on-leave.event.ts
 packages/core/src             # bot framework: createBot, commands, events, logger
 packages/db/src               # database, one folder per domain (schema + repository)
 packages/typescript-config    # shared tsconfig
@@ -38,6 +41,7 @@ packages/typescript-config    # shared tsconfig
 ## Adding a feature
 
 **Command** — implement `runSlash`, `runPrefix`, or both. Only commands with `runSlash` are deployed as slash commands.
+`guildOnly` and `defaultMemberPermissions` apply to both kinds: Discord enforces them for slash commands, the bot for prefix commands.
 
 ```typescript
 // apps/bot/src/features/general/ping.command.ts

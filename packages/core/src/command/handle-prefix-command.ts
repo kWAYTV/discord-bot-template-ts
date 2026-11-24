@@ -2,6 +2,7 @@ import type { Message } from "discord.js";
 import { logger } from "../logger/logger.ts";
 import { COMMAND_ERROR_MESSAGE } from "./command.ts";
 import type { CommandRegistry } from "./command-registry.ts";
+import { getPrefixCommandDenial } from "./prefix-command-access.ts";
 
 /** Returns the command prefix for a guild (`null` in DMs). */
 export type PrefixResolver = (guildId: string | null) => Promise<string> | string;
@@ -21,6 +22,12 @@ export async function handlePrefixCommand(message: Message, registry: CommandReg
   const [name, ...args] = message.content.slice(prefix.length).trim().split(WHITESPACE);
   const command = name ? registry.find(name.toLowerCase()) : undefined;
   if (!command?.runPrefix) {
+    return;
+  }
+
+  const denial = getPrefixCommandDenial(message, command);
+  if (denial) {
+    await message.reply(denial);
     return;
   }
 

@@ -1,5 +1,5 @@
 import type { Client, RESTPostAPIChatInputApplicationCommandsJSONBody } from "discord.js";
-import { ApplicationCommandType, PermissionsBitField, Routes } from "discord.js";
+import { ApplicationCommandType, InteractionContextType, PermissionsBitField, Routes } from "discord.js";
 import { logger } from "../logger/logger.ts";
 import type { Command } from "./command.ts";
 
@@ -9,6 +9,7 @@ function toSlashCommandBody(command: Command): RESTPostAPIChatInputApplicationCo
     description: command.description,
     type: ApplicationCommandType.ChatInput,
     options: command.options,
+    contexts: command.guildOnly ? [InteractionContextType.Guild] : undefined,
     default_member_permissions:
       command.defaultMemberPermissions === undefined
         ? null
